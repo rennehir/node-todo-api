@@ -31,6 +31,8 @@ let UserSchema = new mongoose.Schema({
       required: true
     }
   }]
+}, {
+  usePushEach: true
 });
 
 UserSchema.methods.toJSON = function () {
@@ -45,10 +47,27 @@ UserSchema.methods.generateAuthToken = function () {
   let access = 'auth';
   let token = jwt.sign({_id: user._id.toHexString(), access}, '123abc').toString();
 
-  user.tokens.concat([{access, token}]);
+  user.tokens.push({access, token});
 
   return user.save().then(() => {
     return token;
+  });
+};
+
+UserSchema.statics.findByToken = function (token) {
+  let User = this;
+  let decoded;
+
+  try {
+    decoded = jwt.verify(token, '123abc');
+  } catch (e) {
+    return Promise.reject();
+  }
+
+  return User.findOne({
+    '_id': decoded._id,
+    'tokens.token': token,
+    'tokens.access': 'auth'
   });
 };
 
