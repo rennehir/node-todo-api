@@ -1,0 +1,246 @@
+{
+	"variables": [],
+	"info": {
+		"name": "TodoApp",
+		"_postman_id": "5de5b45b-0a25-0104-5bb6-c41f40b5656b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /todos",
+			"request": {
+				"url": "{{url}}/todos",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "x-auth",
+						"value": "{{authHeader}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Drink water\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /todos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var body = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"todoId\", body._id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/todos",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "x-auth",
+						"value": "{{authHeader}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Something to do from Postman\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /todos/:id",
+			"request": {
+				"url": "{{url}}/todos/{{todoId}}",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "x-auth",
+						"value": "{{authHeader}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Drink water\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /todos/:id",
+			"request": {
+				"url": "{{url}}/todos/{{todoId}}",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "x-auth",
+						"value": "{{authHeader}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /todos/:id",
+			"request": {
+				"url": "{{url}}/todos/{{todoId}}",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "x-auth",
+						"value": "{{authHeader}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"completed\": true\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var token = postman.getResponseHeader('x-auth');",
+							"postman.setEnvironmentVariable(\"authHeader\", token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"rinne@rennehir.fi\",\n\t\"password\": \"kitty123\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /users/me",
+			"request": {
+				"url": "{{url}}/users/me",
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth",
+						"value": "{{authHeader}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /users/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var token = postman.getResponseHeader('x-auth');",
+							"postman.setEnvironmentVariable(\"authHeader\", token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/users/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"ranne@rennehir.fi\",\n\t\"password\": \"kitty123\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /users/me/token",
+			"request": {
+				"url": "{{url}}/users/me/token",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-auth",
+						"value": "{{authHeader}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
