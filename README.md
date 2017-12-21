@@ -30,3 +30,7 @@ nodemon server/server.js
 npm test
 npm run test-watch
 ```
+
+## Setting up postman
+
+Import the TodoApp.postman_collection.json file to Postman. Then set up url as an environment variable.
