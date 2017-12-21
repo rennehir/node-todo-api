@@ -382,7 +382,6 @@ describe('DELETE /users/me/token', () => {
 
         User.findById(users[0]._id).then((user) => {
           expect(user.tokens.length).toBe(0);
-          expect(user.tokens).toNotInclude(users[0].tokens[0].token);
           done();
         }).catch((e) => done(e));
       });
